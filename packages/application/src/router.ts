@@ -20,7 +20,10 @@ export class Router implements IRouter {
   constructor(options: Router.IOptions) {
     this.base = options.base;
     this.commands = options.commands;
+    this.locationHref = '/lab/workspaces/auto';
   }
+
+  locationHref: string;
 
   /**
    * The base URL for the router.
@@ -37,7 +40,7 @@ export class Router implements IRouter {
    */
   get current(): IRouter.ILocation {
     const { base } = this;
-    const parsed = URLExt.parse(window.location.href);
+    const parsed = URLExt.parse(this.locationHref);
     const { search, hash } = parsed;
     const path = parsed.pathname?.replace(base, '/') ?? '';
     const request = path + search + hash;
@@ -67,9 +70,9 @@ export class Router implements IRouter {
    */
   navigate(path: string, options: IRouter.INavOptions = {}): void {
     const { base } = this;
-    const { history } = window;
+    // const { history } = window;
     const { hard } = options;
-    const old = document.location.href;
+    const old = this.locationHref;
     const url =
       path && path.indexOf(base) === 0 ? path : URLExt.join(base, path);
 
@@ -77,7 +80,7 @@ export class Router implements IRouter {
       return hard ? this.reload() : undefined;
     }
 
-    history.pushState({}, '', url);
+    this.locationHref = url;
 
     if (hard) {
       return this.reload();
@@ -115,7 +118,7 @@ export class Router implements IRouter {
    * Cause a hard reload of the document.
    */
   reload(): void {
-    window.location.reload();
+    // window.location.reload();
   }
 
   /**

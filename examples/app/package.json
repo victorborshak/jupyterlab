@@ -2,6 +2,7 @@
   "name": "@jupyterlab/example-app",
   "version": "4.0.0-alpha.2",
   "private": true,
+  "main": "dist/libpack.js",
   "scripts": {
     "build": "webpack",
     "clean": "rimraf build"
@@ -22,7 +23,6 @@
     "@jupyterlab/help-extension": "^4.0.0-alpha.2",
     "@jupyterlab/imageviewer-extension": "^4.0.0-alpha.2",
     "@jupyterlab/inspector-extension": "^4.0.0-alpha.2",
-    "@jupyterlab/launcher-extension": "^4.0.0-alpha.2",
     "@jupyterlab/mainmenu-extension": "^4.0.0-alpha.2",
     "@jupyterlab/markdownviewer-extension": "^4.0.0-alpha.2",
     "@jupyterlab/mathjax2-extension": "^4.0.0-alpha.2",
@@ -40,11 +40,15 @@
     "@jupyterlab/translation": "^4.0.0-alpha.2",
     "@jupyterlab/translation-extension": "^4.0.0-alpha.2",
     "@jupyterlab/ui-components-extension": "^4.0.0-alpha.2",
-    "es6-promise": "~4.2.8",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "es6-promise": "~4.2.8"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/plugin-transform-runtime": "^7.16.4",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/preset-react": "^7.16.0",
+    "@babel/runtime": "^7.16.3",
+    "babel-loader": "^8.0.6",
     "css-loader": "^5.0.1",
     "file-loader": "~6.0.0",
     "fs-extra": "^9.0.1",
@@ -60,7 +64,9 @@
     "watch": "~1.0.2",
     "webpack": "^5.55.1",
     "webpack-cli": "^4.8.0",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "^3.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "jupyterlab": {
     "extensions": [
@@ -78,7 +84,6 @@
       "@jupyterlab/imageviewer-extension",
       "@jupyterlab/inspector-extension",
       "@jupyterlab/json-extension",
-      "@jupyterlab/launcher-extension",
       "@jupyterlab/mainmenu-extension",
       "@jupyterlab/markdownviewer-extension",
       "@jupyterlab/mathjax2-extension",
