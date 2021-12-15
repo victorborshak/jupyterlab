@@ -1,8 +1,8 @@
 // Copyright (c) Jupyter Development Team.
 // Distributed under the terms of the Modified BSD License.
 import React, { useEffect, useRef } from 'react';
-import ReactDOM from 'react-dom';
-// import ReactWebComponent from 'react-web-component';
+// import ReactDOM from 'react-dom';
+import ReactWebComponent from 'react-web-component';
 import { JupyterLab } from '@jupyterlab/application';
 
 // The webpack public path needs to be set before loading the CSS assets.
@@ -85,12 +85,12 @@ export const JupyterLabComp = () => {
 
   return (
     <div ref={rootRef} id="jupyter-lab">
-      test comp
+      Initializing JupyterLab...
     </div>
   );
 };
 
-// ReactWebComponent.create(<JupyterLabComp />, 'jupyter-lab', true);
-setTimeout(() => {
-  ReactDOM.render(<JupyterLabComp />, document.getElementById('app-id'));
-}, 500);
+ReactWebComponent.create(<JupyterLabComp />, 'jupyter-lab', true);
+// setTimeout(() => {
+//   ReactDOM.render(<JupyterLabComp />, document.getElementById('app-id'));
+// }, 500);

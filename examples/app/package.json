@@ -40,7 +40,8 @@
     "@jupyterlab/translation": "^4.0.0-alpha.2",
     "@jupyterlab/translation-extension": "^4.0.0-alpha.2",
     "@jupyterlab/ui-components-extension": "^4.0.0-alpha.2",
-    "es6-promise": "~4.2.8"
+    "es6-promise": "~4.2.8",
+    "react-web-component": "^2.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
