@@ -1,7 +1,6 @@
 // Copyright (c) Jupyter Development Team.
 // Distributed under the terms of the Modified BSD License.
 import React, { useEffect, useRef } from 'react';
-// import ReactDOM from 'react-dom';
 import ReactWebComponent from 'react-web-component';
 import { JupyterLab } from '@jupyterlab/application';
 
@@ -91,6 +90,3 @@ export const JupyterLabComp = () => {
 };
 
 ReactWebComponent.create(<JupyterLabComp />, 'jupyter-lab', true);
-// setTimeout(() => {
-//   ReactDOM.render(<JupyterLabComp />, document.getElementById('app-id'));
-// }, 500);
