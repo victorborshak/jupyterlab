@@ -44,9 +44,9 @@ export abstract class JupyterFrontEnd<
   /**
    * Construct a new JupyterFrontEnd object.
    */
-  constructor(options: JupyterFrontEnd.IOptions<T>) {
+  constructor(options: JupyterFrontEnd.IOptions<T> & { rootElement?: any }) {
     super(options);
-
+    console.log('options', options);
     // render context menu/submenus with inline svg icon tweaks
     this.contextMenu = new ContextMenuSvg({
       commands: this.commands,
@@ -69,6 +69,20 @@ export abstract class JupyterFrontEnd<
       options.restored ||
       this.started.then(() => restored).catch(() => restored);
     this.serviceManager = options.serviceManager || new ServiceManager();
+    this._rootElemenet = (options?.rootElement as unknown) as HTMLElement;
+  }
+
+  /**
+   * Overriding attachShell to allow rendere in a provided rootElement (mainly for shadow DOM)
+   */
+  protected attachShell(id: string): void {
+    if (this._rootElemenet) {
+      console.log('attaching to ', this._rootElemenet);
+      console.log('shell', this.shell);
+      Widget.attach(this.shell, this._rootElemenet);
+    } else {
+      super.attachShell(id);
+    }
   }
 
   /**
@@ -207,6 +221,7 @@ export abstract class JupyterFrontEnd<
   private _contextMenuEvent: MouseEvent;
   private _format: U;
   private _formatChanged = new Signal<this, U>(this);
+  private _rootElemenet: HTMLElement;
 }
 
 /**

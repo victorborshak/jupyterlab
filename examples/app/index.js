@@ -1,6 +1,8 @@
 // Copyright (c) Jupyter Development Team.
 // Distributed under the terms of the Modified BSD License.
-
+import React, { useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
+// import ReactWebComponent from 'react-web-component';
 import { JupyterLab } from '@jupyterlab/application';
 
 // The webpack public path needs to be set before loading the CSS assets.
@@ -38,7 +40,6 @@ const extensions = [
   import('@jupyterlab/running-extension'),
   import('@jupyterlab/settingeditor-extension'),
   import('@jupyterlab/shortcuts-extension'),
-  import('@jupyterlab/statusbar-extension'),
   import('@jupyterlab/terminal-extension'),
   import('@jupyterlab/theme-dark-extension'),
   import('@jupyterlab/theme-light-extension'),
@@ -53,20 +54,43 @@ const mimeExtensions = [
   import('@jupyterlab/pdf-extension')
 ];
 
-window.addEventListener('load', async function () {
-  // Make sure the styles have loaded
-  await styles;
+export const JupyterLabComp = () => {
+  const rootRef = useRef(null);
 
-  // Initialize JupyterLab with the mime extensions and application extensions.
-  const lab = new JupyterLab({
-    mimeExtensions: await Promise.all(mimeExtensions)
-  });
-  lab.registerPluginModules(await Promise.all(extensions));
+  const bootsrapApp = async rootElement => {
+    await styles;
+    // Initialize JupyterLab with the mime extensions and application extensions.
+    const lab = new JupyterLab({
+      mimeExtensions: await Promise.all(mimeExtensions),
+      rootElement
+    });
+    lab.registerPluginModules(await Promise.all(extensions));
+    /* eslint-disable no-console */
+    console.log('Starting app');
 
-  /* eslint-disable no-console */
-  console.log('Starting app');
-  await lab.start();
-  console.log('App started, waiting for restore');
-  await lab.restored;
-  console.log('Example started!');
-});
+    setTimeout(async () => {
+      await lab.start();
+      console.log('App started, waiting for restore');
+      await lab.restored;
+      console.log('Example started!');
+    }, 1000);
+  };
+
+  useEffect(() => {
+    if (rootRef.current) {
+      console.log('root element', rootRef.current);
+      bootsrapApp(rootRef.current);
+    }
+  }, [rootRef.current]);
+
+  return (
+    <div ref={rootRef} id="jupyter-lab">
+      test comp
+    </div>
+  );
+};
+
+// ReactWebComponent.create(<JupyterLabComp />, 'jupyter-lab', true);
+setTimeout(() => {
+  ReactDOM.render(<JupyterLabComp />, document.getElementById('app-id'));
+}, 500);

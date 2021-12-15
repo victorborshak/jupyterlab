@@ -58,6 +58,13 @@ module.exports = [
           use: {
             loader: 'raw-loader'
           }
+        },
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader'
+          }
         }
       ]
     },
