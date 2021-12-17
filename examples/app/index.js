@@ -67,12 +67,16 @@ const extensions = [
           window.parent.postMessage({ action: 'pong' }, '*');
         }
         if (action === 'runCommand') {
-          const { command } = event.data;
+          const { cmd, arg } = event.data;
           console.log(app.shell.currentWidget);
-          if (app.shell.currentWidget instanceof NotebookPanel) {
-            app.commands.execute(command);
-          } else {
+          console.log({ cmd, arg });
+          if (
+            cmd.startsWith('notebook:') &&
+            !(app.shell.currentWidget instanceof NotebookPanel)
+          ) {
             console.log('current widget is not notebook, so doing nothing');
+          } else {
+            app.commands.execute(cmd, arg);
           }
         }
       });
