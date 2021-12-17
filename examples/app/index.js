@@ -102,6 +102,15 @@ window.addEventListener('load', async function () {
   /* eslint-disable no-console */
   console.log('Starting app');
   await lab.start();
+  var parsedUrl = new URL(window.location.href);
+  const theme = parsedUrl.searchParams.get('theme');
+  if (theme) {
+    parsedUrl.searchParams.delete('theme');
+    window.history.replaceState({}, '', parsedUrl.href);
+  }
+  await lab.commands.execute('apputils:change-theme', {
+    theme: theme === 'light' ? 'JupyterLab Light' : 'JupyterLab Dark'
+  });
   console.log('App started, waiting for restore');
   await lab.restored;
   console.log('Example started!');
